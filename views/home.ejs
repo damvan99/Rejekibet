@@ -1,5 +1,5 @@
 <%- include('partials/head') %>
-<section class="wrap hero-grid">
+<div class="wrap">
   <% if (featured) { %>
   <article class="hero">
     <img src="<%= coverUrl(featured) %>" alt="" width="800" height="450">
@@ -11,38 +11,42 @@
     </div>
   </article>
   <% } else { %>
-  <div class="empty"><h1>Belum ada artikel</h1><p>Masuk ke panel admin untuk menerbitkan artikel pertama.</p></div>
+  <div class="section"><div class="empty"><h1>Belum ada artikel</h1><p>Masuk ke panel admin untuk menerbitkan artikel pertama.</p></div></div>
   <% } %>
-  <aside class="popular" aria-labelledby="pop-h">
-    <h2 id="pop-h" class="eyebrow">Paling banyak dibaca</h2>
-    <ol>
-      <% popular.forEach((a, i) => { %>
-      <li><span class="rank"><%= String(i + 1).padStart(2, '0') %></span><div><a href="/artikel/<%= a.slug %>"><%= a.title %></a><span class="muted"><%= CATEGORIES[a.category].label %> · <%= formatDate(a.created_at) %></span></div></li>
-      <% }) %>
-    </ol>
-  </aside>
-</section>
 
-<% if (latest.length) { %>
-<section class="wrap section">
-  <div class="section-head"><h2>Terbaru</h2><a class="more" href="/artikel">Semua artikel →</a></div>
-  <div class="grid"><% latest.slice(0, 6).forEach((a) => { %><%- include('partials/card', { a }) %><% }) %></div>
-</section>
-<% } %>
+  <% if (latest.length) { %>
+  <section class="section">
+    <div class="section-head"><h2>Artikel Terbaru</h2><a class="more" href="/artikel">Semua →</a></div>
+    <div class="grid"><% latest.slice(0, 5).forEach((a) => { %><%- include('partials/card', { a }) %><% }) %></div>
+  </section>
+  <% } %>
 
-<% if (topGames.length) { %>
-<section class="band">
-  <div class="wrap section">
-    <div class="section-head"><h2>Skor tertinggi redaksi</h2><a class="more" href="/game">Direktori game →</a></div>
+  <% if (topGames.length) { %>
+  <section class="section">
+    <div class="section-head"><h2>Skor Tertinggi Redaksi</h2><a class="more" href="/game">Semua game →</a></div>
     <div class="ggrid"><% topGames.forEach((g) => { %><%- include('partials/gamecard', { g }) %><% }) %></div>
-  </div>
-</section>
-<% } %>
+  </section>
+  <% } %>
 
-<% if (guides.length) { %>
-<section class="wrap section">
-  <div class="section-head"><h2>Panduan pilihan</h2><a class="more" href="/kategori/panduan">Semua panduan →</a></div>
-  <div class="grid"><% guides.forEach((a) => { %><%- include('partials/card', { a }) %><% }) %></div>
-</section>
-<% } %>
+  <% if (popular.length) { %>
+  <section class="section">
+    <div class="section-head"><h2>Paling Banyak Dibaca</h2></div>
+    <div class="popular"><ol>
+      <% popular.forEach((a, i) => { %>
+      <li><span class="rank"><%= i + 1 %>.</span><div><a href="/artikel/<%= a.slug %>"><%= a.title %></a><span class="muted"><%= CATEGORIES[a.category].label %> · <%= formatDate(a.created_at) %></span></div></li>
+      <% }) %>
+    </ol></div>
+  </section>
+  <% } %>
+
+  <section class="section">
+    <div class="section-head"><h2>Pertanyaan yang Sering Diajukan</h2></div>
+    <div class="faq">
+      <details><summary>Apa itu Rejekibet?</summary><p>Rejekibet adalah portal berita, ulasan, dan panduan game berbahasa Indonesia. Kami menulis tentang game yang benar-benar kami mainkan.</p></details>
+      <details><summary>Bagaimana cara redaksi memberi skor?</summary><p>Setiap game dinilai 0–10 setelah ditamatkan atau dimainkan cukup lama untuk memahami semua sistem utamanya. Penjelasan lengkap ada di halaman Tentang Kami.</p></details>
+      <details><summary>Apakah membaca Rejekibet gratis?</summary><p>Ya. Semua artikel, ulasan, dan panduan bisa dibaca gratis tanpa perlu mendaftar.</p></details>
+      <details><summary>Bagaimana cara menghubungi redaksi?</summary><p>Kirim kabar, koreksi, atau tawaran kerja sama melalui kontak di halaman Tentang Kami.</p></details>
+    </div>
+  </section>
+</div>
 <%- include('partials/foot') %>

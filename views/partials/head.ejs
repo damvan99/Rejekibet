@@ -15,7 +15,7 @@
 <meta property="og:image" content="<%= _img %>">
 <meta property="og:url" content="<%= siteUrl + currentPath %>">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b0d12">
+<meta name="theme-color" content="#15803d">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,8 +29,8 @@
     <a class="logo" href="/" aria-label="Rejekibet beranda"><span class="logo-mark" aria-hidden="true"></span>Rejeki<b>bet</b></a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Buka menu"><span></span><span></span><span></span></button>
     <nav id="nav" class="nav" aria-label="Navigasi utama">
-      <% const _nav = [['/kategori/berita','Berita'],['/kategori/ulasan','Ulasan'],['/kategori/panduan','Panduan'],['/kategori/esports','Esports'],['/game','Direktori Game']]; %>
-      <% _nav.forEach(([href, label]) => { %><a href="<%= href %>"<%- currentPath.startsWith(href) ? ' aria-current="page"' : '' %>><%= label %></a><% }) %>
+      <% const _nav = [['/', 'Beranda'], ['/artikel', 'Artikel'], ['/game', 'Game']]; const _on = (h) => h === '/' ? currentPath === '/' : (currentPath.startsWith(h) || (h === '/artikel' && currentPath.startsWith('/kategori'))); %>
+      <% _nav.forEach(([href, label]) => { %><a href="<%= href %>"<%- _on(href) ? ' aria-current="page"' : '' %>><%= label %></a><% }) %>
       <form class="search" action="/cari" role="search">
         <label class="sr" for="q">Cari artikel atau game</label>
         <input id="q" name="q" type="search" placeholder="Cari game, ulasan…" minlength="2" required>

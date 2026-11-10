@@ -11,9 +11,8 @@ router.get('/', (req, res) => {
   const latest = db.prepare(`SELECT ${A_COLS} FROM articles a WHERE published = 1 AND id != ? ORDER BY created_at DESC LIMIT 7`).all(featured ? featured.id : 0);
   const popular = db.prepare(`SELECT ${A_COLS} FROM articles a WHERE published = 1 ORDER BY views DESC, created_at DESC LIMIT 5`).all();
   const topGames = db.prepare('SELECT * FROM games ORDER BY rating DESC, created_at DESC LIMIT 6').all();
-  const guides = db.prepare(`SELECT ${A_COLS} FROM articles a WHERE published = 1 AND category = 'panduan' ORDER BY created_at DESC LIMIT 3`).all();
   res.render('home', {
-    featured, latest, popular, topGames, guides,
+    featured, latest, popular, topGames,
     meta: { description: 'Rejekibet — berita, ulasan, dan panduan game terbaru dalam bahasa Indonesia.' }
   });
 });
