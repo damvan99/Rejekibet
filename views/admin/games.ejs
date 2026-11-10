@@ -1,0 +1,22 @@
+<%- include('_top', { pageTitle: 'Game' }) %>
+<div class="admin-head"><h1>Game</h1><a class="btn" href="/admin/game/baru">+ Game baru</a></div>
+<% if (!items.length) { %><div class="empty"><h2>Belum ada game</h2><a class="btn" href="/admin/game/baru">Tambah game pertama</a></div><% } else { %>
+<div class="table-wrap"><table>
+  <thead><tr><th>Judul</th><th>Genre</th><th>Platform</th><th class="num">Skor</th><th class="num">Artikel</th><th></th></tr></thead>
+  <tbody>
+  <% items.forEach((g) => { %>
+  <tr>
+    <td><a href="/admin/game/<%= g.id %>"><strong><%= g.title %></strong></a><br><span class="muted"><%= g.developer %></span></td>
+    <td><%= g.genre %></td><td><%= g.platforms %></td>
+    <td class="num"><%= g.rating.toFixed(1) %></td><td class="num"><%= g.article_count %></td>
+    <td class="actions">
+      <a href="/game/<%= g.slug %>" target="_blank" rel="noopener">Lihat</a>
+      <a href="/admin/game/<%= g.id %>">Ubah</a>
+      <form method="post" action="/admin/game/<%= g.id %>/hapus" data-confirm="Hapus game “<%= g.title %>”? Artikel terkait tetap ada."><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="linkbtn danger">Hapus</button></form>
+    </td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table></div>
+<% } %>
+<%- include('_bottom') %>

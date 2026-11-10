@@ -1,0 +1,48 @@
+<%- include('partials/head') %>
+<section class="wrap hero-grid">
+  <% if (featured) { %>
+  <article class="hero">
+    <img src="<%= coverUrl(featured) %>" alt="" width="800" height="450">
+    <div class="hero-text">
+      <a class="tag tag-<%= featured.category %>" href="/kategori/<%= featured.category %>"><%= CATEGORIES[featured.category].label %></a>
+      <h1><a href="/artikel/<%= featured.slug %>"><%= featured.title %></a></h1>
+      <p><%= featured.excerpt %></p>
+      <div class="meta"><span><%= featured.author %></span><span><%= formatDate(featured.created_at) %></span><span><%= readingTime(featured.content) %> mnt baca</span></div>
+    </div>
+  </article>
+  <% } else { %>
+  <div class="empty"><h1>Belum ada artikel</h1><p>Masuk ke panel admin untuk menerbitkan artikel pertama.</p></div>
+  <% } %>
+  <aside class="popular" aria-labelledby="pop-h">
+    <h2 id="pop-h" class="eyebrow">Paling banyak dibaca</h2>
+    <ol>
+      <% popular.forEach((a, i) => { %>
+      <li><span class="rank"><%= String(i + 1).padStart(2, '0') %></span><div><a href="/artikel/<%= a.slug %>"><%= a.title %></a><span class="muted"><%= CATEGORIES[a.category].label %> · <%= formatDate(a.created_at) %></span></div></li>
+      <% }) %>
+    </ol>
+  </aside>
+</section>
+
+<% if (latest.length) { %>
+<section class="wrap section">
+  <div class="section-head"><h2>Terbaru</h2><a class="more" href="/artikel">Semua artikel →</a></div>
+  <div class="grid"><% latest.slice(0, 6).forEach((a) => { %><%- include('partials/card', { a }) %><% }) %></div>
+</section>
+<% } %>
+
+<% if (topGames.length) { %>
+<section class="band">
+  <div class="wrap section">
+    <div class="section-head"><h2>Skor tertinggi redaksi</h2><a class="more" href="/game">Direktori game →</a></div>
+    <div class="ggrid"><% topGames.forEach((g) => { %><%- include('partials/gamecard', { g }) %><% }) %></div>
+  </div>
+</section>
+<% } %>
+
+<% if (guides.length) { %>
+<section class="wrap section">
+  <div class="section-head"><h2>Panduan pilihan</h2><a class="more" href="/kategori/panduan">Semua panduan →</a></div>
+  <div class="grid"><% guides.forEach((a) => { %><%- include('partials/card', { a }) %><% }) %></div>
+</section>
+<% } %>
+<%- include('partials/foot') %>

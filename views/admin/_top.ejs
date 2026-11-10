@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Admin Rejekibet</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin">
+<% if (admin) { %>
+<aside class="side">
+  <a class="logo" href="/admin"><span class="logo-mark" aria-hidden="true"></span>Rejeki<b>bet</b></a>
+  <nav aria-label="Menu admin">
+    <a href="/admin"<%- section === 'dashboard' ? ' aria-current="page"' : '' %>>Dasbor</a>
+    <a href="/admin/artikel"<%- section === 'artikel' ? ' aria-current="page"' : '' %>>Artikel</a>
+    <a href="/admin/game"<%- section === 'game' ? ' aria-current="page"' : '' %>>Game</a>
+    <a href="/admin/akun"<%- section === 'akun' ? ' aria-current="page"' : '' %>>Akun</a>
+  </nav>
+  <div class="side-foot">
+    <a href="/" target="_blank" rel="noopener">Lihat situs ↗</a>
+    <form method="post" action="/admin/logout"><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="linkbtn">Keluar (<%= admin.username %>)</button></form>
+  </div>
+</aside>
+<% } %>
+<main class="admin-main">
+<% if (flash) { %><div class="flash flash-<%= flash.type %>" role="status"><%= flash.text %></div><% } %>

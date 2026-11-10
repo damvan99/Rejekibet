@@ -1,0 +1,18 @@
+<%- include('partials/head') %>
+<section class="wrap page-head">
+  <p class="eyebrow">Direktori</p>
+  <h1>Direktori Game</h1>
+  <p class="lead">Game yang sudah kami mainkan dan nilai, diurutkan dari skor tertinggi.</p>
+  <div class="chips">
+    <a href="/game"<%- !genre ? ' aria-current="page"' : '' %>>Semua genre</a>
+    <% genres.forEach((g) => { %><a href="/game?genre=<%= encodeURIComponent(g) %>"<%- genre === g ? ' aria-current="page"' : '' %>><%= g %></a><% }) %>
+  </div>
+</section>
+<section class="wrap section">
+  <% if (games.length) { %>
+  <div class="ggrid"><% games.forEach((g) => { %><%- include('partials/gamecard', { g }) %><% }) %></div>
+  <% } else { %>
+  <div class="empty"><h2>Belum ada game untuk genre ini</h2><a class="btn" href="/game">Lihat semua game</a></div>
+  <% } %>
+</section>
+<%- include('partials/foot') %>

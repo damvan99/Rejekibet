@@ -1,0 +1,24 @@
+<%- include('_top', { pageTitle: 'Artikel' }) %>
+<div class="admin-head"><h1>Artikel</h1><a class="btn" href="/admin/artikel/baru">+ Artikel baru</a></div>
+<% if (!items.length) { %><div class="empty"><h2>Belum ada artikel</h2><a class="btn" href="/admin/artikel/baru">Tulis artikel pertama</a></div><% } else { %>
+<div class="table-wrap"><table>
+  <thead><tr><th>Judul</th><th>Kategori</th><th>Status</th><th class="num">Dibaca</th><th>Tanggal</th><th></th></tr></thead>
+  <tbody>
+  <% items.forEach((a) => { %>
+  <tr>
+    <td><a href="/admin/artikel/<%= a.id %>"><strong><%= a.title %></strong></a><% if (a.featured) { %> <span class="pill pill-gold">Utama</span><% } %><br><span class="muted"><%= a.author %></span></td>
+    <td><%= CATEGORIES[a.category].label %></td>
+    <td><span class="pill <%= a.published ? 'pill-ok' : '' %>"><%= a.published ? 'Terbit' : 'Draf' %></span></td>
+    <td class="num"><%= a.views.toLocaleString('id-ID') %></td>
+    <td><%= formatDate(a.created_at) %></td>
+    <td class="actions">
+      <% if (a.published) { %><a href="/artikel/<%= a.slug %>" target="_blank" rel="noopener">Lihat</a><% } %>
+      <a href="/admin/artikel/<%= a.id %>">Ubah</a>
+      <form method="post" action="/admin/artikel/<%= a.id %>/hapus" data-confirm="Hapus artikel “<%= a.title %>”? Tindakan ini tidak bisa dibatalkan."><input type="hidden" name="_csrf" value="<%= csrf %>"><button class="linkbtn danger">Hapus</button></form>
+    </td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table></div>
+<% } %>
+<%- include('_bottom') %>

@@ -1,0 +1,27 @@
+{
+  "name": "rejekibet",
+  "version": "1.0.0",
+  "description": "Rejekibet — portal berita, ulasan, dan panduan game berbahasa Indonesia",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node src/seed.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "better-sqlite3": "^12.4.1",
+    "compression": "^1.8.1",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
+    "marked": "^16.4.1",
+    "multer": "^2.0.2",
+    "sanitize-html": "^2.17.0"
+  }
+}

@@ -1,0 +1,35 @@
+<%- include('partials/head') %>
+<article class="post">
+  <header class="wrap post-head">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Beranda</a> / <a href="/kategori/<%= article.category %>"><%= CATEGORIES[article.category].label %></a></nav>
+    <h1><%= article.title %></h1>
+    <p class="lead"><%= article.excerpt %></p>
+    <div class="meta"><span>Oleh <strong><%= article.author %></strong></span><span><%= formatDate(article.created_at) %></span><span><%= readingTime(article.content) %> mnt baca</span></div>
+  </header>
+  <div class="wrap"><img class="post-cover" src="<%= coverUrl(article) %>" alt="" width="800" height="450"></div>
+  <div class="wrap post-layout">
+    <div class="prose"><%- html %></div>
+    <aside class="post-side">
+      <% if (article.game_slug) { %>
+      <a class="gamebox" href="/game/<%= article.game_slug %>">
+        <span class="eyebrow">Game terkait</span>
+        <strong><%= article.game_title %></strong>
+        <span class="muted"><%= article.game_genre %></span>
+        <span class="bigscore"><%= article.game_rating.toFixed(1) %><small>/10</small></span>
+        <span class="more">Lihat profil game →</span>
+      </a>
+      <% } %>
+      <div class="share">
+        <span class="eyebrow">Bagikan</span>
+        <button class="btn btn-ghost" data-copy="<%= siteUrl %>/artikel/<%= article.slug %>">Salin tautan</button>
+      </div>
+    </aside>
+  </div>
+</article>
+<% if (related.length) { %>
+<section class="wrap section">
+  <div class="section-head"><h2>Baca juga</h2></div>
+  <div class="grid"><% related.forEach((a) => { %><%- include('partials/card', { a }) %><% }) %></div>
+</section>
+<% } %>
+<%- include('partials/foot') %>

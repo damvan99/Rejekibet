@@ -1,0 +1,13 @@
+<%- include('_top', { pageTitle: 'Masuk', section: '' }) %>
+<div class="login">
+  <a class="logo" href="/"><span class="logo-mark" aria-hidden="true"></span>Rejeki<b>bet</b></a>
+  <h1>Masuk ke panel admin</h1>
+  <% if (error) { %><div class="flash flash-err" role="alert"><%= error %></div><% } %>
+  <form method="post" action="/admin/login" class="form">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <label>Username<input name="username" autocomplete="username" required autofocus></label>
+    <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="btn">Masuk</button>
+  </form>
+</div>
+<%- include('_bottom') %>

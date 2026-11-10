@@ -1,0 +1,26 @@
+<%- include('partials/head') %>
+<section class="wrap game-head">
+  <img src="<%= coverUrl(game) %>" alt="" width="800" height="450">
+  <div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Beranda</a> / <a href="/game">Direktori Game</a></nav>
+    <h1><%= game.title %></h1>
+    <p class="lead"><%= game.summary %></p>
+    <div class="game-stats">
+      <div class="bigscore"><%= game.rating.toFixed(1) %><small>/10</small></div>
+      <dl>
+        <% if (game.genre) { %><div><dt>Genre</dt><dd><%= game.genre %></dd></div><% } %>
+        <% if (game.platforms) { %><div><dt>Platform</dt><dd><%= game.platforms %></dd></div><% } %>
+        <% if (game.developer) { %><div><dt>Pengembang</dt><dd><%= game.developer %></dd></div><% } %>
+        <% if (game.release_year) { %><div><dt>Rilis</dt><dd><%= game.release_year %></dd></div><% } %>
+      </dl>
+    </div>
+  </div>
+</section>
+<section class="wrap post-layout"><div class="prose"><%- html %></div></section>
+<% if (articles.length) { %>
+<section class="wrap section">
+  <div class="section-head"><h2>Artikel tentang <%= game.title %></h2></div>
+  <div class="grid"><% articles.forEach((a) => { %><%- include('partials/card', { a }) %><% }) %></div>
+</section>
+<% } %>
+<%- include('partials/foot') %>

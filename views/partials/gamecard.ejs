@@ -1,0 +1,4 @@
+<a class="gcard" href="/game/<%= g.slug %>">
+  <span class="gcard-media"><img src="<%= coverUrl(g) %>" alt="" loading="lazy" width="800" height="450"><span class="score"><%= g.rating.toFixed(1) %></span></span>
+  <span class="gcard-body"><strong><%= g.title %></strong><span class="muted"><%= g.genre %><%= g.platforms ? ' · ' + g.platforms : '' %></span></span>
+</a>

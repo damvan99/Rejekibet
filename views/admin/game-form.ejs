@@ -1,0 +1,26 @@
+<%- include('_top', { pageTitle: item.id ? 'Ubah game' : 'Game baru' }) %>
+<div class="admin-head"><h1><%= item.id ? 'Ubah game' : 'Game baru' %></h1><a class="btn btn-ghost" href="/admin/game">← Kembali</a></div>
+<% if (error) { %><div class="flash flash-err" role="alert"><%= error %></div><% } %>
+<form method="post" enctype="multipart/form-data" action="/admin/game/<%= item.id || 'baru' %>?_csrf=<%= csrf %>" class="form form-grid">
+  <div class="form-main">
+    <label>Judul<input name="title" value="<%= item.title %>" maxlength="120" required></label>
+    <label>Ringkasan singkat<textarea name="summary" rows="3" maxlength="300"><%= item.summary %></textarea></label>
+    <label>Deskripsi <small>Format Markdown</small><textarea name="description" rows="16" class="mono"><%= item.description %></textarea></label>
+  </div>
+  <div class="form-side">
+    <div class="panel"><button class="btn">Simpan</button></div>
+    <div class="panel">
+      <label>Skor (0–10)<input name="rating" type="number" min="0" max="10" step="0.1" value="<%= item.rating %>"></label>
+      <label>Genre<input name="genre" value="<%= item.genre %>" maxlength="60"></label>
+      <label>Platform<input name="platforms" value="<%= item.platforms %>" maxlength="80" placeholder="PC, Konsol, Mobile"></label>
+      <label>Pengembang<input name="developer" value="<%= item.developer %>" maxlength="80"></label>
+      <label>Tahun rilis<input name="release_year" type="number" min="1970" max="2100" value="<%= item.release_year || '' %>"></label>
+      <label>Slug URL <small>Kosongkan untuk dibuat otomatis</small><input name="slug" value="<%= item.slug || '' %>"></label>
+    </div>
+    <div class="panel">
+      <label>Gambar sampul <small>JPG, PNG, atau WebP · maks. 5 MB</small><input type="file" name="cover" accept="image/jpeg,image/png,image/webp"></label>
+      <% if (item.cover) { %><img class="thumb" src="/uploads/<%= item.cover %>" alt="Sampul saat ini"><label class="check"><input type="checkbox" name="remove_cover" value="1"> Hapus sampul ini</label><% } %>
+    </div>
+  </div>
+</form>
+<%- include('_bottom') %>

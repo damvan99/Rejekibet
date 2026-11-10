@@ -1,0 +1,8 @@
+<%- include('partials/head') %>
+<section class="wrap section"><div class="empty">
+  <p class="eyebrow"><%= typeof errorMessage !== 'undefined' ? 'Ups' : '404' %></p>
+  <h1><%= typeof errorMessage !== 'undefined' ? errorMessage : 'Halaman ini tidak ditemukan' %></h1>
+  <p>Tautannya mungkin sudah berubah atau artikelnya sudah dipindahkan.</p>
+  <a class="btn" href="/">Kembali ke beranda</a>
+</div></section>
+<%- include('partials/foot') %>

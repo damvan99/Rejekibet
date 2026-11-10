@@ -1,0 +1,18 @@
+<%- include('partials/head') %>
+<section class="wrap page-head">
+  <p class="eyebrow">Pencarian</p>
+  <h1><%= q ? `Hasil untuk “${q}”` : 'Cari di Rejekibet' %></h1>
+  <form class="search search-lg" action="/cari" role="search">
+    <label class="sr" for="q2">Kata kunci</label>
+    <input id="q2" name="q" type="search" value="<%= q %>" placeholder="Ketik judul game atau topik…" minlength="2" required>
+    <button class="btn">Cari</button>
+  </form>
+</section>
+<section class="wrap section">
+  <% if (games.length) { %><div class="section-head"><h2>Game</h2></div><div class="ggrid"><% games.forEach((g) => { %><%- include('partials/gamecard', { g }) %><% }) %></div><% } %>
+  <% if (items.length) { %><div class="section-head"><h2>Artikel</h2></div><div class="grid"><% items.forEach((a) => { %><%- include('partials/card', { a }) %><% }) %></div><% } %>
+  <% if (q && !items.length && !games.length) { %>
+  <div class="empty"><h2>Tidak ada hasil</h2><p>Coba kata kunci yang lebih pendek atau periksa ejaannya.</p><a class="btn" href="/artikel">Jelajahi semua artikel</a></div>
+  <% } %>
+</section>
+<%- include('partials/foot') %>

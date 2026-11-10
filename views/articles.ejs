@@ -1,0 +1,25 @@
+<%- include('partials/head') %>
+<section class="wrap page-head">
+  <p class="eyebrow"><%= cat ? 'Kategori' : 'Arsip' %></p>
+  <h1><%= cat ? cat.label : 'Semua Artikel' %></h1>
+  <p class="lead"><%= cat ? cat.desc : 'Berita, ulasan, panduan, dan liputan esports dalam satu tempat.' %></p>
+  <div class="chips">
+    <a href="/artikel"<%- !category ? ' aria-current="page"' : '' %>>Semua</a>
+    <% Object.entries(CATEGORIES).forEach(([k, c]) => { %><a href="/kategori/<%= k %>"<%- category === k ? ' aria-current="page"' : '' %>><%= c.label %></a><% }) %>
+  </div>
+</section>
+<section class="wrap section">
+  <% if (items.length) { %>
+  <div class="grid"><% items.forEach((a) => { %><%- include('partials/card', { a }) %><% }) %></div>
+  <% if (pages > 1) { %>
+  <nav class="pager" aria-label="Halaman">
+    <% if (page > 1) { %><a href="<%= basePath %>?page=<%= page - 1 %>">← Sebelumnya</a><% } %>
+    <span>Halaman <%= page %> dari <%= pages %></span>
+    <% if (page < pages) { %><a href="<%= basePath %>?page=<%= page + 1 %>">Berikutnya →</a><% } %>
+  </nav>
+  <% } %>
+  <% } else { %>
+  <div class="empty"><h2>Belum ada artikel di sini</h2><p>Coba kategori lain atau kembali lagi nanti.</p><a class="btn" href="/artikel">Lihat semua artikel</a></div>
+  <% } %>
+</section>
+<%- include('partials/foot') %>

@@ -1,0 +1,9 @@
+<article class="card">
+  <a class="card-media" href="/artikel/<%= a.slug %>" tabindex="-1" aria-hidden="true"><img src="<%= coverUrl(a) %>" alt="" loading="lazy" width="800" height="450"></a>
+  <div class="card-body">
+    <a class="tag tag-<%= a.category %>" href="/kategori/<%= a.category %>"><%= CATEGORIES[a.category] ? CATEGORIES[a.category].label : a.category %></a>
+    <h3><a href="/artikel/<%= a.slug %>"><%= a.title %></a></h3>
+    <p><%= a.excerpt %></p>
+    <div class="meta"><span><%= a.author %></span><span><%= formatDate(a.created_at) %></span><span><%= readingTime(a.content) %> mnt baca</span></div>
+  </div>
+</article>
